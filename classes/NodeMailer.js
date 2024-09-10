@@ -1,15 +1,18 @@
 // Import the nodemailer package
 const nodemailer = require("nodemailer");
+const emailUsedToSend = process.env.EMAIL_CONFIG_EMAIL;
 
 // Define the Mailer class
 class Mailer {
       constructor() {
             // Create a transporter object using your email service credentials
             this.transporter = nodemailer.createTransport({
-                  service: "gmail", // You can use any email service (Gmail, Outlook, etc.)
+                  host: process.env.EMAIL_CONFIG_HOST, // e.g., 'smtp.gmail.com'
+                  port: 465, // Common port for secure connections
+                  secure: true, // Use true for 465, false for other ports
                   auth: {
-                        user: "your-email@gmail.com", // Your email address
-                        pass: "your-email-password", // Your email password or app-specific password
+                        user: emailUsedToSend, // Your email address
+                        pass: process.env.EMAIL_CONFIG_PASS, // Your email password or app-specific password
                   },
             });
       }
@@ -18,7 +21,7 @@ class Mailer {
       async sendEmail(to, subject, text) {
             // Define the email options
             const mailOptions = {
-                  from: "your-email@gmail.com", // Sender's email
+                  from: emailUsedToSend, // Sender's email
                   to: to, // Recipient's email
                   subject: subject, // Subject of the email
                   text: text, // Body of the email
