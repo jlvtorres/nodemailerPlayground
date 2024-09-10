@@ -10,7 +10,7 @@ const formattedTimestamp = new Date().toLocaleString("en-US", {
 });
 
 class CustomError extends Error {
-      constructor(message = "none added", statusCode = "none added", details = "none added") {
+      constructor(message = "none added", statusCode = "none added", details = "none added", originalStack = "") {
             super(message);
             this.statusCode = statusCode;
             this.details = details;

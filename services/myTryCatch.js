@@ -6,6 +6,8 @@ const myTryCatch = (routeFunction) => async (req, res, next) => {
       try {
             await routeFunction(req, res);
       } catch (error) {
+            const errorStack = error.stack || [];
+
             error = new CustomError(error);
             next(error);
             return;
